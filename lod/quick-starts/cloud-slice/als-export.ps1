@@ -64,9 +64,8 @@ function Read-Input {
             while ($true) {
                 $input = Read-Host
                 switch ($input) {
-                    "Performance", "Quality" {
-                        return $input
-                    }
+                    "Performance" { return $input }
+                    "Quality" { return $input }
                     default {
                         Write-Host "Invalid input. Please enter 'Performance' or 'Quality'." -ForegroundColor Red
                     }
