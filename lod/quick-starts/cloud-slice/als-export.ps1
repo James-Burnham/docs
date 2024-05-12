@@ -26,23 +26,22 @@ function aad-auth{
 function Read-Input {
     param(
         [string]$Prompt = "Please enter something:",
-        [ValidateSet("Integer", "Text", "Boolean","Mode")] # This restricts the Type parameter to these values.
-        [string]$Type = "Text",
+        [ValidateSet("Integer", "FreeText", "Boolean", "Mode")]
+        [string]$Type = "FreeText",
         [System.ConsoleColor]$Color = 'Cyan'
     )
-
+    
     Write-Host -NoNewline -ForegroundColor $Color $Prompt
-    $input = Read-Host
 
     switch ($Type) {
         "Integer" {
             while ($true) {
+                $input = Read-Host
                 try {
                     $int = [int]::Parse($input)
                     return $int
                 } catch {
                     Write-Host "Invalid input. Please enter a valid integer." -ForegroundColor Red
-                    $input = Read-Host
                 }
             }
         }
@@ -58,14 +57,16 @@ function Read-Input {
                 }
             }
         }
-        "Text" {
-            return $input
+        "FreeText" {
+            return Read-Host
         }
-        "Mode" {  # New case for handling "Performance" or "Quality"
+        "Mode" {
             while ($true) {
                 $input = Read-Host
                 switch ($input) {
-                    "Performance", "Quality" { return $input }
+                    "Performance", "Quality" {
+                        return $input
+                    }
                     default {
                         Write-Host "Invalid input. Please enter 'Performance' or 'Quality'." -ForegroundColor Red
                     }
