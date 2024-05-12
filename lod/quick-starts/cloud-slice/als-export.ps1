@@ -79,7 +79,7 @@ aad-auth
 if($cancel -eq $true){return "You have identified this as the incorrect tenant. Please login to the correct tenant and try again."}
 $seriesID = Read-Input -Type Integer -Prompt 'Enter your Skillable Lab Series ID:' -Color Cyan
 $subPoolID = Read-Input -Type Integer -Prompt 'Enter your Skillable Cloud Subscription Pool ID:' -Color Cyan
-Write-Host -ForegroundColor Yellow "COST IMPACT: Skillable supports the ability for lab users to extend their quota hours by 50% if needed. Skillable does not charge orchestration costs for this access, but any Azure charges in that period will still be applicable. Would you like to enable this capability for these labs?"
+Write-Host -ForegroundColor Yellow "`nCOST IMPACT: Skillable supports the ability for lab users to extend their quota hours by 50% if needed. Skillable does not charge orchestration costs for this access, but any Azure charges in that period will still be applicable."
 $timeExtensions = Read-Input -Type Boolean -Prompt 'Would you like to enable time extensions for these labs (Yes/No)?' -Color Cyan
-Write-Host -ForegroundColor Yellow "Would you like to prioritize lab performance or visual quality? Performance mode disables the VM background and font smoothing."
+Write-Host -ForegroundColor Yellow "`nWould you like to prioritize lab performance or visual quality? Performance mode disables the VM background and font smoothing, these are generally minor impacts but in regions with poor internet they can become more severe (this decision can be changed later on specific labs)."
 $perfMode = Read-Input -Type Mode -Prompt 'Please select performance or quality mode:' -Color Cyan
