@@ -250,7 +250,7 @@ foreach ($lab in $AzureLabs) {
     $importLabData.VirtualMachineProfiles[0].ExternalMachineImageRegion = $labData.ExternalMachineImageRegion
 
     # Save JSON data to file
-    $jsonFilePath = "./tmp/${labName}.json"
+    $jsonFilePath = "./tmp/data.json"
     $zipFilePath = "./labs/${labName}_import.zip"
     $importLabData | ConvertTo-Json -Depth 10 | Out-File -FilePath $jsonFilePath -Encoding UTF8
 
