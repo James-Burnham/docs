@@ -160,7 +160,8 @@ foreach ($lab in $AzureLabs) {
         ExternalMachineImage = $null
         ExternalMachineImageRegion = $null
         CloudDatacenterAvailability = $null
-        OSType = $lab.VirtualMachineProfileOSType
+        OperatingSystem = $null
+        OperatingSystemValue = $null
         Username = $null
         Password = $null
         ExternalImageSource = $null
@@ -206,9 +207,16 @@ foreach ($lab in $AzureLabs) {
         $labData.ExternalMachineImageRegion = $lab.ImageReferenceVersion
     }
 
-    # Check for RDP and SSH access
+    # Check Operating System
     $labData.AllowDesktopConnections = $lab.ConnectionProfileClientRdpAccess -ne "None" -or $lab.ConnectionProfileWebRdpAccess -ne "None"
     $labData.AllowSshConnections = $lab.ConnectionProfileClientSSHAccess -ne "None" -or $lab.ConnectionProfileWebSSHAccess -ne "None"
+    #if($($lab.VirtualMachineProfileOSType) -eq 'Windows'){
+        $labData.OperatingSystem='Windows 10'
+        $labData.OperatingSystemValue='windows9_64Guest'
+    #}else{
+    #    $labData.OperatingSystem='Linux'
+    #    $labData.OperatingSystemValue='windows9_64Guest'
+    #}
 
     # Set username and password
     $adminUsername = $lab.AdminUserUsername
@@ -242,7 +250,8 @@ foreach ($lab in $AzureLabs) {
     $importLabData.LabProfiles[0].AllowTimeExtensions = $labData.AllowTimeExtensions
     $importLabData.LabProfiles[0].Machines[0].AllowDesktopConnections = $labData.AllowDesktopConnections
     $importLabData.LabProfiles[0].Machines[0].AllowSshConnections = $labData.AllowSshConnections
-    $importLabData.VirtualMachineProfiles[0].OperatingSystemValue = $labdata.OSType
+    $importLabData.VirtualMachineProfiles[0].OperatingSystem = $labData.OperatingSystem
+    $importLabData.VirtualMachineProfiles[0].OperatingSystemValue = $labData.OperatingSystemValue
     $importLabData.VirtualMachineProfiles[0].MachineType = $labData.MachineType
     $importLabData.VirtualMachineProfiles[0].Username = $labData.Username
     $importLabData.VirtualMachineProfiles[0].Password = $labData.Password
