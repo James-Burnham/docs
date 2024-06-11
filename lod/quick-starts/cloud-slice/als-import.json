@@ -286,7 +286,7 @@
       ],
       "TargetResourceGroup": null,
       "CloudOperatingSystemType": 0,
-      "DiskType": 2,
+      "DiskType": 0,
       "UseCloudHybridBenefit": false,
       "Enabled": true,
       "AllowDiskUpdatesInLabConsole": true,
