@@ -303,7 +303,7 @@
       "RedirectClipboard": false,
       "AttemptAutoLogon": false,
       "AllowDesktopWallpaper": false,
-      "EnableFontSmoothing": false,
+      "EnableFontSmoothing": true,
       "MachineType": "Standard_F4s_v2",
       "ExternalMachineImage": "qaimagedefinition",
       "ExternalMachineImageRegion": "1.0.1",
