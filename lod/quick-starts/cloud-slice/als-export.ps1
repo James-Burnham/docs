@@ -39,7 +39,7 @@ function aad-auth {
 function Read-Input {
     param(
         [string]$Prompt = "Please enter something:",
-        [ValidateSet("Integer", "FreeText", "Boolean", "Subpool", "Mode")]
+        [ValidateSet("Integer", "FreeText", "Boolean", "Org", "Mode")]
         [string]$Type = "FreeText",
         [System.ConsoleColor]$Color = 'Cyan'
     )
@@ -73,18 +73,18 @@ function Read-Input {
         "FreeText" {
             return Read-Host
         }
-        "Subpool" {
+        "Org" {
             while ($true) {
                 $input = Read-Host
                 try {
                     $int = [int]::Parse($input)
-                    if ($int -gt 726) {
+                    if ($int -gt 4365) {
                         return $int
                     } else {
-                        Write-Host "Invalid input. Please enter a valid subscription pool ID." -ForegroundColor Red
+                        Write-Host "Invalid input. Please enter a valid organization ID." -ForegroundColor Red
                     }
                 } catch {
-                    Write-Host "Invalid input. Please enter a valid subscription pool ID." -ForegroundColor Red
+                    Write-Host "Invalid input. Please enter a valid organization pool ID." -ForegroundColor Red
                 }
             }
         }
@@ -131,6 +131,7 @@ $i = 0
 # Obtain user input of variables
 Write-Host -ForegroundColor Yellow "`nCOST IMPACT: Skillable supports the ability for lab users to extend their quota hours by 50% if needed. Skillable does not charge orchestration costs for this access, but any Azure charges in that period will still be applicable."
 $timeExtensions = Read-Input -Type Boolean -Prompt 'Would you like to enable time extensions for these labs (Yes/No)?' -Color Cyan
+$orgID = Read-Input -Type Org -Prompt 'Specify the Organization ID provided in your welcome email:' -Color Cyan
 
 # Initialize an array to store all lab data
 $allLabData = @()
@@ -239,6 +240,7 @@ foreach ($lab in $AzureLabs) {
     $importLabData = $exportLabData | ConvertTo-Json -Depth 10 | ConvertFrom-Json
     $importLabData.LabProfiles[0].Name = $labData.Name
     $importLabData.LabProfiles[0].InstructionsSets[0].LabTitle = $labData.LabTitle
+    $importLabData.LabProfiles[0].InstructionsSets[0].OrganizationId = $orgID
     $importLabData.VirtualMachineProfiles[0].Name = $labData.VMName
     $importLabData.LabProfiles[0].Number = $labData.Number
     $importLabData.LabProfiles[0].DurationMinutes = $labData.DurationMinutes
