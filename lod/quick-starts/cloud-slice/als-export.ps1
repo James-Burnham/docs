@@ -1,7 +1,7 @@
 # Clean Remnants from Past Executions
-Remove-Item ./labs/*
-Remove-Item ./tmp/*
-Remove-Item ./Labs_Export.zip
+Remove-Item ./labs/* -ErrorAction Ignore
+Remove-Item ./tmp/* -ErrorAction Ignore
+Remove-Item ./Labs_Export.zip -ErrorAction Ignore
 
 # Create Necessary Directories
 New-Item -Path "./" -Name "tmp" -ItemType "directory" -ErrorAction Ignore | Out-Null
