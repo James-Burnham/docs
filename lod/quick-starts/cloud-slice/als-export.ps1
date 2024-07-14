@@ -109,8 +109,8 @@ aad-auth
 if ($cancel -eq $true) { return "You have identified this as the incorrect tenant. Please login to the correct tenant and try again." }
 
 # Validate Azure Lab Services Module available - install if not
+$AzLabServicesModule = "Az.LabServices"
 if (-not (Get-Module -ListAvailable -Name $AzLabServicesModule)) {
-    $AzLabServicesModule = "Az.LabServices"
     Write-Host "Azure Lab Services Module is not installed. Attempting to install..."
     
     # Install the module from PSGallery or another specified repository
